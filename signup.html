@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Social Media App - Sign Up</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body data-page="signup" class="auth-body enhanced-auth-body">
+    <main class="auth-container">
+      <section class="auth-card enhanced-auth-card">
+        <h1 class="auth-title enhanced-auth-title">Create an Account ✨</h1>
+        <p class="auth-subtitle enhanced-auth-subtitle">
+          Join the Mini Social Media App in a few seconds.
+        </p>
+
+        <form id="signup-form" class="auth-form">
+          <label for="signup-username" class="label enhanced-label">Username</label>
+          <input
+            type="text"
+            id="signup-username"
+            class="input input-text enhanced-input"
+            placeholder="Your display name"
+            required
+          />
+
+          <label for="signup-email" class="label enhanced-label">Email</label>
+          <input
+            type="email"
+            id="signup-email"
+            class="input input-text enhanced-input"
+            placeholder="you@example.com"
+            required
+          />
+
+          <label for="signup-password" class="label enhanced-label">Password</label>
+          <input
+            type="password"
+            id="signup-password"
+            class="input input-text enhanced-input"
+            placeholder="Create a password"
+            required
+          />
+
+          <label for="signup-password-confirm" class="label enhanced-label">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="signup-password-confirm"
+            class="input input-text enhanced-input"
+            placeholder="Repeat your password"
+            required
+          />
+
+          <div id="signup-error" class="form-error enhanced-error"></div>
+
+          <button type="submit" class="btn btn-primary auth-submit enhanced-auth-btn">
+            Sign Up
+          </button>
+        </form>
+
+        <p class="auth-switch enhanced-switch">
+          Already have an account?
+          <a href="login.html" class="link enhanced-link">Log in</a>
+        </p>
+      </section>
+    </main>
+    <script>
+  window.onload = () => {
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach(i => i.value = "");
+  };
+</script>
+
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

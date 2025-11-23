@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CozMeet – Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="app-body" data-page="profile">
+    <!-- Auth overlay (reuse from dashboard) -->
+    <div id="auth-overlay" class="auth-overlay hidden">
+      <div class="auth-dialog">
+        <div class="auth-tabs">
+          <button
+            type="button"
+            id="auth-tab-login"
+            class="auth-tab auth-tab--active"
+            data-mode="login"
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            id="auth-tab-signup"
+            class="auth-tab"
+            data-mode="signup"
+          >
+            Sign up
+          </button>
+        </div>
+
+        <!-- Login form -->
+        <form id="login-form" class="auth-form">
+          <h2 class="auth-title">Welcome back</h2>
+          <label class="auth-label" for="login-email">Email</label>
+          <input
+            id="login-email"
+            class="auth-input"
+            type="email"
+            placeholder="you@example.com"
+            required
+          />
+
+          <label class="auth-label" for="login-password">Password</label>
+          <input
+            id="login-password"
+            class="auth-input"
+            type="password"
+            placeholder="Enter your password"
+            required
+          />
+
+          <div id="login-error" class="auth-error" aria-live="polite"></div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            Login
+          </button>
+        </form>
+
+        <!-- Signup form -->
+        <form id="signup-form" class="auth-form auth-form--hidden">
+          <h2 class="auth-title">Create account</h2>
+          <label class="auth-label" for="signup-username">Username</label>
+          <input
+            id="signup-username"
+            class="auth-input"
+            type="text"
+            placeholder="Your name"
+            required
+          />
+
+          <label class="auth-label" for="signup-email">Email</label>
+          <input
+            id="signup-email"
+            class="auth-input"
+            type="email"
+            placeholder="you@example.com"
+            required
+          />
+
+          <label class="auth-label" for="signup-password">Password</label>
+          <input
+            id="signup-password"
+            class="auth-input"
+            type="password"
+            placeholder="Create a password"
+            required
+          />
+
+          <div id="signup-error" class="auth-error" aria-live="polite"></div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            Sign up
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="app-shell">
+      <!-- Shared topbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button
+            type="button"
+            id="profile-back-btn"
+            class="profile-back-btn"
+          >
+            ← Back
+          </button>
+          <div class="brand">Soical Media App</div>
+        </div>
+
+        <div class="topbar-center">
+          <div class="topbar-search">
+            <span class="topbar-search-icon">&#128269;</span>
+            <input
+              id="nav-search"
+              type="text"
+              placeholder="Search users, posts, comments"
+              class="topbar-search-input"
+            />
+          </div>
+          <div id="search-results" class="search-results hidden"></div>
+        </div>
+
+        <div class="topbar-right">
+          <nav class="topbar-nav">
+            <a href="index.html" class="topbar-link">Home</a>
+          </nav>
+
+          <div class="topbar-icons">
+            <button
+              type="button"
+              id="notif-bell"
+              class="topbar-icon topbar-icon-btn"
+              aria-label="Notifications"
+            >
+              <span id="notif-dot" class="notif-dot hidden"></span>
+              &#128276;
+            </button>
+          </div>
+
+          <div class="topbar-user">
+            <button
+              type="button"
+              id="navbar-profile-link"
+              class="topbar-profile-link"
+            >
+              <div class="avatar avatar--small" id="navbar-avatar">R</div>
+              <span id="navbar-username" class="topbar-username">User</span>
+            </button>
+            <button id="logout-button" class="topbar-switch">Logout</button>
+          </div>
+
+          <!-- Notification dropdown -->
+          <div id="notif-panel" class="notif-panel hidden">
+            <div class="notif-panel-header">
+              <span class="notif-title">Notifications</span>
+              <button type="button" id="notif-clear" class="notif-clear-btn">
+                Clear
+              </button>
+            </div>
+            <div id="notif-list" class="notif-list"></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Profile edit / view layout -->
+      <main class="profile-layout">
+        <section class="card profile-edit-card">
+          <div class="profile-edit-main">
+            <div class="profile-edit-left">
+              <div class="profile-edit-avatar-wrap">
+                <div class="avatar" id="profile-edit-avatar">U</div>
+              </div>
+              <button
+                type="button"
+                id="profile-change-pic"
+                class="btn btn-primary profile-change-pic-btn"
+              >
+                Change Picture
+              </button>
+              <input
+                id="profile-pic-file"
+                type="file"
+                accept="image/png,image/jpeg,image/jpg,image/webp"
+                class="visually-hidden"
+              />
+            </div>
+
+            <div class="profile-edit-right">
+              <h1 class="profile-edit-title" id="profile-edit-heading">
+                Edit Profile
+              </h1>
+
+              <div class="profile-edit-grid">
+                <div class="profile-edit-field">
+                  <label for="profile-edit-username">Username</label>
+                  <input
+                    id="profile-edit-username"
+                    type="text"
+                    class="profile-edit-input"
+                    placeholder="Your display name"
+                  />
+                </div>
+
+                <div class="profile-edit-field">
+                  <label for="profile-edit-handle">Handle</label>
+                  <div class="profile-edit-handle-wrap">
+                    <span class="profile-edit-handle-prefix">@</span>
+                    <input
+                      id="profile-edit-handle"
+                      type="text"
+                      class="profile-edit-input profile-edit-input--handle"
+                      placeholder="username"
+                    />
+                  </div>
+                </div>
+
+                <div class="profile-edit-field">
+                  <label for="profile-edit-email">Email</label>
+                  <input
+                    id="profile-edit-email"
+                    type="email"
+                    class="profile-edit-input"
+                    placeholder="you@example.com"
+                  />
+                </div>
+
+                <div class="profile-edit-field profile-edit-field--full">
+                  <label for="profile-edit-bio">Bio</label>
+                  <textarea
+                    id="profile-edit-bio"
+                    class="profile-edit-input profile-edit-textarea"
+                    rows="3"
+                    placeholder="Tell people a bit about yourself..."
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="profile-edit-stats">
+                <div class="profile-stat">
+                  <div
+                    class="profile-stat-number"
+                    id="profile-edit-posts-count"
+                  >
+                    0
+                  </div>
+                  <div class="profile-stat-label">Posts</div>
+                </div>
+                <div class="profile-stat">
+                  <div
+                    class="profile-stat-number"
+                    id="profile-edit-followers-count"
+                  >
+                    0
+                  </div>
+                  <div class="profile-stat-label">Followers</div>
+                </div>
+                <div class="profile-stat">
+                  <div
+                    class="profile-stat-number"
+                    id="profile-edit-following-count"
+                  >
+                    0
+                  </div>
+                  <div class="profile-stat-label">Following</div>
+                </div>
+              </div>
+
+              <div class="profile-edit-actions">
+                <button
+                  type="button"
+                  id="profile-save-btn"
+                  class="btn btn-primary"
+                >
+                  Save Changes
+                </button>
+              </div>
+
+              <p id="profile-save-status" class="profile-save-status"></p>
+
+              <h2 class="profile-posts-heading">Posts</h2>
+              <section id="profile-posts-list" class="feed-list">
+                <!-- User’s posts rendered by JS -->
+              </section>
+              <p id="profile-empty-posts" class="empty-feed">
+                No posts to show yet.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Shared post edit modal -->
+    <div id="edit-post-overlay" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Edit post</h2>
+          <button
+            type="button"
+            id="edit-post-close"
+            class="modal-close-btn"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="edit-post-text" class="modal-label">Caption</label>
+          <textarea
+            id="edit-post-text"
+            class="modal-textarea"
+            rows="4"
+          ></textarea>
+
+          <div class="modal-image-row">
+            <div class="modal-image-controls">
+              <button
+                type="button"
+                id="edit-post-upload-btn"
+                class="btn btn-primary modal-image-btn"
+              >
+                Replace image
+              </button>
+              <button
+                type="button"
+                id="edit-post-remove-image"
+                class="modal-secondary-btn"
+              >
+                Remove image
+              </button>
+            </div>
+            <input
+              id="edit-post-image-file"
+              type="file"
+              accept="image/png,image/jpeg,image/jpg,image/webp"
+              class="visually-hidden"
+            />
+          </div>
+
+          <div
+            id="edit-post-image-preview"
+            class="composer-image-preview modal-image-preview hidden"
+          >
+            <img
+              id="edit-post-image-preview-img"
+              src=""
+              alt="Post image preview"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            id="edit-post-cancel"
+            class="modal-secondary-btn"
+          >
+            Cancel
+          </button>
+          <button type="button" id="edit-post-save" class="btn btn-primary">
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
