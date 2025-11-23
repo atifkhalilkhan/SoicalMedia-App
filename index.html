@@ -2,308 +2,58 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>CozMeet – Mini Social Media App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Social Media App - Login</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="app-body" data-page="dashboard">
 
-<div id="auth-overlay" class="auth-overlay hidden">
-  <div class="auth-dialog improved-auth-dialog">
+  <body data-page="login" class="auth-body enhanced-auth-body">
+    <main class="auth-container">
+      <section class="auth-card enhanced-auth-card">
+        <h1 class="auth-title enhanced-auth-title">Welcome Back</h1>
+        <p class="auth-subtitle enhanced-auth-subtitle">
+          Log in to continue to the Mini Social Media App.
+        </p>
 
-    <button id="auth-close-btn" class="auth-close-btn">✕</button>
+        <form id="login-form" class="auth-form">
+          <label for="login-email" class="label enhanced-label">Email</label>
+          <input
+            type="email"
+            id="login-email"
+            class="input input-text enhanced-input"
+            placeholder="you@example.com"
+            required
+          />
 
-    <div class="auth-tabs">
-      <button type="button" id="auth-tab-login" class="auth-tab auth-tab--active">Login</button>
-      <button type="button" id="auth-tab-signup" class="auth-tab">Sign up</button>
-    </div>
+          <label for="login-password" autofill class="label enhanced-label">Password</label>
+          <input
+            type="password"
+            id="login-password"
+            class="input input-text enhanced-input"
+            placeholder="Enter your password"
+            required
+          />
 
+          <div id="login-error" class="form-error enhanced-error"></div>
 
-
-  </div>
-</div>
-
-
-    <div class="app-shell">
-      <!-- Top navbar -->
-      <header class="topbar">
-        <div class="topbar-left">
-          <div class="brand">Soical Media App</div>
-        </div>
-
-        <div class="topbar-center">
-          <div class="topbar-search" style="padding: 10px;">
-            <!-- <span class="topbar-search-icon">&#128269;</span> -->
-            <input
-              id="nav-search"
-              type="text"
-              placeholder="Search users, posts, comments"
-              class="topbar-search-input"
-            />
-          </div>
-          <div id="search-results" class="search-results hidden"></div>
-        </div>
-
-        <div class="topbar-right">
-          
-
-          <div class="topbar-icons">
-            <button
-              type="button"
-              id="notif-bell"
-              class="topbar-icon topbar-icon-btn"
-              aria-label="Notifications"
-            >
-              <span id="notif-dot" class="notif-dot hidden"></span>
-              &#128276;
-            </button>
-          </div>
-
-          <div class="topbar-user">
-            <button
-              type="button"
-              id="navbar-profile-link"
-              class="topbar-profile-link"
-            >
-              <div class="avatar avatar--small" id="navbar-avatar"></div>
-              <span id="navbar-username" class="topbar-username">User</span>
-            </button>
-            <button id="logout-button" class="topbar-switch">Logout</button>
-            
-
-          </div>
-
-          <!-- Notification dropdown -->
-          <div id="notif-panel" class="notif-panel hidden">
-            <div class="notif-panel-header">
-              <span class="notif-title">Notifications</span>
-              <button type="button" id="notif-clear" class="notif-clear-btn">
-                Clear
-              </button>
-            </div>
-            <div id="notif-list" class="notif-list"></div>
-          </div>
-        </div>
-      </header>
-
-      <!-- Main 3-column layout -->
-      <main class="layout">
-        <!-- Left sidebar: profile -->
-        <aside class="sidebar sidebar-left">
-          <section class="card profile-card">
-            <div class="profile-header">
-              <div class="profile-cover"></div>
-              <div class="profile-avatar-wrap">
-                <div class="avatar" id="profile-avatar">U</div>
-              </div>
-            </div>
-            <div class="profile-body">
-              <h2 id="profile-name" class="profile-name">Username</h2>
-              <p id="profile-handle" class="profile-handle">@handle</p>
-
-              <div class="profile-stats">
-                <div class="profile-stat">
-                  <div class="profile-stat-number" id="profile-posts-count">
-                    0
-                  </div>
-                  <div class="profile-stat-label">Posts</div>
-                </div>
-                <div class="profile-stat">
-                  <div class="profile-stat-number" id="profile-followers">
-                    0
-                  </div>
-                  <div class="profile-stat-label">Followers</div>
-                </div>
-                <div class="profile-stat">
-                  <div class="profile-stat-number" id="profile-following">
-                    0
-                  </div>
-                  <div class="profile-stat-label">Following</div>
-                </div>
-              </div>
-
-              <button
-                id="btn-my-profile"
-                class="btn btn-primary btn-block"
-                type="button"
-              >
-                My Profile
-              </button>
-            </div>
-          </section>
-
-          
-        </aside>
-
-        <!-- Center column: composer + feed -->
-        <section class="feed-column">
-          <!-- Composer -->
-          <section class="card composer-card">
-            <div class="composer-top">
-              <div class="avatar avatar--small" id="composer-avatar">U</div>
-              <!-- Caption / description textarea -->
-              <textarea
-                id="composer-text"
-                class="composer-input composer-textarea"
-                rows="3"
-                placeholder="Share something... (supports emoji and line breaks)"
-              ></textarea>
-            </div>
-
-            <div class="composer-bottom">
-              <div class="composer-actions">
-                <button
-                  id="composer-upload-btn"
-                  class="composer-pill"
-                  type="button"
-                >
-                   Upload Image
-                </button>
-                <input
-                  id="composer-image-file"
-                  type="file"
-                  accept="image/png,image/jpeg,image/jpg,image/webp"
-                  class="visually-hidden"
-                />
-              </div>
-
-              <div class="composer-right">
-                <button id="composer-submit" class="btn btn-primary">
-                  Post
-                </button>
-              </div>
-            </div>
-
-            <div
-              id="composer-image-preview"
-              class="composer-image-preview hidden"
-            >
-              <img
-                id="composer-image-preview-img"
-                src=""
-                alt="Selected image preview"
-              />
-              <button
-                type="button"
-                id="composer-remove-image"
-                class="composer-remove-image"
-              >
-                ✕
-              </button>
-            </div>
-          </section>
-
-          <!-- Sort bar -->
-          <section class="sort-bar">
-            <div class="sort-label">
-              Sort by:
-              <select id="sort-select" class="sort-select">
-                <option value="latest">Newst</option>
-                <option value="oldest">Oldest</option>
-                <option value="most-liked">Most liked</option>
-              </select>
-            </div>
-          </section>
-
-          <!-- Feed list -->
-          <section class="feed-list" id="feed-list">
-            <!-- Posts are rendered here -->
-          </section>
-
-          <p id="empty-feed" class="empty-feed">
-            No posts yet. Share something to get started.
-          </p>
-        </section>
-
-        <!-- Right sidebar: activity + suggestions -->
-        <aside class="sidebar sidebar-right">
-          
-
-          <section class="card suggestions-card">
-            <div class="card-header">
-              <h3 class="card-title">Suggested for you</h3>
-              <button class="card-link">See all</button>
-            </div>
-            <ul id="suggestions-list" class="suggestions-list">
-              <!-- Suggestions populated by JS -->
-            </ul>
-          </section>
-        </aside>
-      </main>
-    </div>
-
-    <div id="edit-post-overlay" class="modal-overlay hidden">
-      <div class="modal">
-        <div class="modal-header">
-          <h2 class="modal-title">Edit post</h2>
-          <button
-            type="button"
-            id="edit-post-close"
-            class="modal-close-btn"
-            aria-label="Close"
-          >
-            ✕
+          <button type="submit" class="btn btn-primary auth-submit enhanced-auth-btn">
+            Login
           </button>
-        </div>
-        <div class="modal-body">
-          <label for="edit-post-text" class="modal-label">Caption</label>
-          <textarea
-            id="edit-post-text"
-            class="modal-textarea"
-            rows="4"
-          ></textarea>
+        </form>
 
-          <div class="modal-image-row">
-            <div class="modal-image-controls">
-              <button
-                type="button"
-                id="edit-post-upload-btn"
-                class="btn btn-primary modal-image-btn"
-              >
-                Replace image
-              </button>
-              <button
-                type="button"
-                id="edit-post-remove-image"
-                class="modal-secondary-btn"
-              >
-                Remove image
-              </button>
-            </div>
-            <input
-              id="edit-post-image-file"
-              type="file"
-              accept="image/png,image/jpeg,image/jpg,image/webp"
-              class="visually-hidden"
-            />
-          </div>
+        <p class="auth-switch enhanced-switch">
+          Don't have an account?
+          <a href="signup.html" class="link enhanced-link">Sign up</a>
+        </p>
+      </section>
+    </main>
+<script>
+  window.onload = () => {
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach(i => i.value = "");
+  };
+</script>
 
-          <div
-            id="edit-post-image-preview"
-            class="composer-image-preview modal-image-preview hidden"
-          >
-            <img
-              id="edit-post-image-preview-img"
-              src=""
-              alt="Post image preview"
-            />
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            id="edit-post-cancel"
-            class="modal-secondary-btn"
-          >
-            Cancel
-          </button>
-          <button type="button" id="edit-post-save" class="btn btn-primary">
-            Save changes
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
   </body>
 </html>

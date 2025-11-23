@@ -1192,7 +1192,7 @@ function handleSignupSubmit(e) {
   saveUsers(users);
 
   // SUCCESS → redirect to login page
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
 
 
@@ -1220,7 +1220,7 @@ function handleLoginSubmit(e) {
   currentUser = user;
 
   // SUCCESS → Go to dashboard
-  window.location.href = "index.html"; // OR dashboard.html (your main page)
+  window.location.href = "dashboad.html"; // OR dashboard.html (your main page)
 }
 
 
